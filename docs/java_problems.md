@@ -1,5 +1,7 @@
 # `Classic Computer Science Problems in Java` (by David Copez)
 
+[назад](../README.md)
+
 * [Fibonacci](#fibonacci)
 * [Простейшее сжатие](#простейшее-сжатие)
 * [Невскрываемое шифрование](#невскрываемое-шифрование)
@@ -340,4 +342,4 @@ public class Main {
 }
 ```
 
-[наверх](#java-problems)
+[наверх](#java-problems) | [назад](../README.md) 

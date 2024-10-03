@@ -1,6 +1,7 @@
 # Java Concurrency
 
-[назад](java_main_prep.md)
+
+[назад](../README.md)
 
 * [Java Memory Model](#java-memomory-model)
 * [Многопоточность и как создать поток в Java](#многопоточность-и-как-создать-поток-в-java)
@@ -310,4 +311,5 @@ public class Main {
 
 Java также предоставляет более высокоуровневые средства для работы с многозадачностью, такие как класс `ExecutorService` и пакет `java.util.concurrent`, который предоставляет более удобные и эффективные способы управления потоками и выполнения параллельных задач.
 
-[наверх](#java-concurrency) | [назад](java_main_prep.md)
+[наверх](#java-concurrency) | 
+[назад](../README.md)

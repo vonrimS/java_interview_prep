@@ -1,6 +1,6 @@
 # Java Spring Framework
 
-[назад](java_main_prep.md)
+[назад](../README.md)
 
 * [Что такое `Spring Framework` и для чего он используется](#что-такое-spring-framework-и-для-чего-он-используется)
 * [Каковы основные преимущества использования `Spring Framework`](#каковы-основные-преимущества-использования-spring-framework)
@@ -1402,4 +1402,4 @@ public class MyMicroserviceApplication {
 
 В целом, `Spring Boot` и `Spring Cloud` предоставляют комплексный набор инструментов для создания, развертывания и управления микросервисными архитектурами, упрощая разработку и поддержку масштабируемых и устойчивых к отказам распределенных систем.
 
-[наверх](#java-spring-framework)
+[наверх](#java-spring-framework) | [назад](../README.md)

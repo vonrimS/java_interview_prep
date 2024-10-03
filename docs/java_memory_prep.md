@@ -1,6 +1,6 @@
 # Память в Java
 
-[назад](java_main_prep.md)
+[назад](../README.md)
 
 * [Как устроена память в Java](#как-устроена-память-в-java)
 * [Как работает Garbage Collector](#как-работает-garbage-collector)
@@ -136,4 +136,4 @@
 [наверх](#память-в-java)
 
 
-[наверх](#память-в-java) | [назад](java_main_prep.md)
+[наверх](#память-в-java) | [назад](../README.md)

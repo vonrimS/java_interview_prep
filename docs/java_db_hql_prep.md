@@ -1,6 +1,6 @@
 # Работа с `HQL`
 
-[назад](java_main_prep.md)
+[назад](../README.md)
 
 
 * [HQL и в чем его цель](#hql-и-в-чем-его-цель)
@@ -547,4 +547,5 @@ query.setMaxResults(10);
 
 ##
 
-[наверх](#работа-с-hql) | [назад](java_main_prep.md)
+[наверх](#работа-с-hql) | 
+[назад](../README.md)

@@ -1,6 +1,6 @@
 # Java Stream API
 
-[назад](java_main_prep.md)
+[назад](../README.md)
 
 * [Что такое `Java Stream API`](#что-такое-java-stream-api)
 * [Как работать с `Java Stream API`](#как-работать-с-java-stream-api)
@@ -2493,5 +2493,5 @@ System.out.println("Сумма четных чисел: " + sum);
 ```
 В этом примере, мы создаем поток данных из списка чисел, фильтруем только четные числа, затем суммируем их. Это основная идея работы с `Java Stream API` и потоками данных в `Java`.
 
-[наверх](#java-stream-api) | [назад](java_main_prep.md)
+[наверх](#java-stream-api) | [назад](../README.md)
 

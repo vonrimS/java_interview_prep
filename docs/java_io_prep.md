@@ -1,6 +1,6 @@
 # Java File I/O
 
-[назад](java_main_prep.md)
+[назад](../README.md)
 
 * [Что такое Java I/O](#что-такое-java-io)
 * [Как создать объект класса File для представления файла или директории в Java](#как-создать-объект-класса-file-для-представления-файла-или-директории-в-java)
@@ -1018,4 +1018,4 @@ public class FileCopyExample {
 }
 ```
 
-[наверх](#java-file-io) | [назад](java_main_prep.md)
+[наверх](#java-file-io) | [назад](../README.md)

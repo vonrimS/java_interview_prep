@@ -1,6 +1,6 @@
 # Java 8+
 
-[назад](java_main_prep.md)
+[назад](../README.md)
 
 * [Record](#record)
 
@@ -38,4 +38,5 @@ public record User(String name, int age) {}
 
 
 
-[наверх](#java-8) | [назад](java_main_prep.md)
+[наверх](#java-8) | 
+[назад](../README.md)

@@ -115,4 +115,5 @@ public class GenericsExample {
 }
 ```
 
-[наверх](#java-core)
+[наверх](#java-core) | 
+[назад](../README.md)
