@@ -27,5 +27,8 @@
 * [Шаблоны проектирования](../design-patterns/design-patterns-main.md)
 * [Common Knowledge](../common_knowledge/common_main.md)
 
+____
+* [Топ-20 SQL задач](docs/top_sql_problems.md)
+
 
 [наверх](#подготовка-к-java-интервью)
