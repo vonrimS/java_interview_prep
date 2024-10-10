@@ -29,6 +29,11 @@
 
 ____
 * [Топ-20 SQL задач](docs/top_sql_problems.md)
+* [Топ-30 Java задач](docs/top_java_problems.md)
+* [Топ-20 Java Stream API](docs/top_java_streamapi.md)
+* [Топ-20 Java Concurrency](docs/top_java_concurrency.md)
+* [Топ-20 Java Collections](docs/top_java_collections.md)
+
 
 
 [наверх](#подготовка-к-java-интервью)
