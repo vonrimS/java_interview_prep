@@ -57,13 +57,21 @@
         if (a.length() != b.length())
             return false;
 
-        char[] charsA = a.toCharArray();
-        char[] charsB = b.toCharArray();
+        int[] count = new int[256]; // Массив для подсчета символов (ASCII 256 символов)
 
-        Arrays.sort(charsA);
-        Arrays.sort(charsB);
+        // Увеличиваем счётчик для символов из строки 'a' и уменьшаем для символов из строки 'b'
+        for (int i = 0; i < a.length(); i++) {
+            count[a.charAt(i)]++;
+            count[b.charAt(i)]--;
+        }
 
-        return Arrays.equals(charsA, charsB);
+        // Проверяем, что все значения в массиве равны нулю
+        for (int i : count) {
+            if (i != 0)
+                return false;
+        }
+
+        return true;
 
     }
     
