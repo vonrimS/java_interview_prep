@@ -57,22 +57,24 @@
         if (a.length() != b.length())
             return false;
 
-        int[] count = new int[256]; // Массив для подсчета символов (ASCII 256 символов)
+        Map<Character, Integer> charMap = new HashMap<>();
 
-        // Увеличиваем счётчик для символов из строки 'a' и уменьшаем для символов из строки 'b'
-        for (int i = 0; i < a.length(); i++) {
-            count[a.charAt(i)]++;
-            count[b.charAt(i)]--;
+        for (int i = 0; i < a.length(); i++){
+            char c = a.charAt(i);
+            charMap.put(c, charMap.getOrDefault(c, 0) + 1);
         }
 
-        // Проверяем, что все значения в массиве равны нулю
-        for (int i : count) {
-            if (i != 0)
-                return false;
+        for (int i = 0; i < b.length(); i++){
+            char c = b.charAt(i);
+            if (!charMap.containsKey(c))
+                return false; // символ 'b' не найден в 'a'
+
+            charMap.put(c, charMap.get(c) - 1);
+            if (charMap.get(c) == 0)
+                charMap.remove(c);
         }
 
-        return true;
-
+        return charMap.isEmpty();
     }
     
 </details>
