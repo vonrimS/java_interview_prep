@@ -2,7 +2,7 @@
 
 ## 1. Алгоритмы и структуры данных
 
-1. Реверс строки (String Reversal)
+1. **Реверс строки (String Reversal)**
 
 Напишите метод, который принимает строку и возвращает ее в обратном порядке без использования встроенных методов обратного прохода строки.
 <details>
@@ -24,7 +24,7 @@
 <br>
 
 
-2. Проверка палиндрома (Palindrome Check)
+2. **Проверка палиндрома (Palindrome Check)**
 
 Напишите метод, который проверяет, является ли данная строка палиндромом (читается одинаково с обеих сторон).
 <details>
@@ -46,7 +46,7 @@
 </details>
 <br>
 
-3. Анаграммы (Anagram Check)
+3. **Анаграммы (Anagram Check)**
 
 Напишите метод, который определяет, являются ли две строки анаграммами (имеют одинаковые символы в разном порядке).
 <details>
@@ -80,7 +80,7 @@
 </details>
 <br>
 
-4. Найти наибольший элемент в массиве (Find Max Element)
+4. **Найти наибольший элемент в массиве (Find Max Element)**
 
 Напишите функцию, которая находит наибольший элемент в массиве целых чисел.
 
@@ -101,9 +101,9 @@
 </details>
 <br>
 
-5. Реализация стека (Stack Implementation)
+5. **Реализация стека (Stack Implementation)**
 
-Реализуйте стек (push, pop, peek, isEmpty) с помощью массива или связанного списка.
+Реализуйте стек (push, pop, peek, isEmpty, isFull) с помощью массива или связанного списка.
 
 <details>
  <summary>Решение 5</summary> 
@@ -157,7 +157,7 @@
 </details>
 <br>
 
-6. Проверка сбалансированности скобок (Balanced Brackets)
+6. **Проверка сбалансированности скобок (Balanced Brackets)**
 
 Напишите метод, который принимает строку с различными видами скобок (), {}, [], и проверяет, все ли они сбалансированы.
 
@@ -192,7 +192,7 @@
 </details>
 <br>
 
-7. Поиск первого уникального символа (First Unique Character)
+7. **Поиск первого уникального символа (First Unique Character)**
 
 Напишите функцию, которая находит первый уникальный символ в строке и возвращает его индекс.
 
@@ -220,7 +220,7 @@
 </details>
 <br>
 
-8. Нахождение общих элементов в двух массивах (Common Elements in Arrays)
+8. **Нахождение общих элементов в двух массивах (Common Elements in Arrays)**
 
 Реализуйте метод, который находит общие элементы между двумя массивами целых чисел int[].
 
@@ -253,7 +253,7 @@
 </details>
 <br>
 
-9. Реализация очереди с двумя стеками (Queue Using Two Stacks)
+9. **Реализация очереди с двумя стеками (Queue Using Two Stacks)**
 
 Реализуйте очередь (enqueue, dequeue) с использованием двух стеков.
 
@@ -261,55 +261,58 @@
  <summary>Решение 9</summary> 
  </br>
 
-    public class CustomQueue {
-        private Stack<Integer> stack1;
-        private Stack<Integer> stack2;
+    public class CustomQueue<T> {
+        private Stack<T> stack1;  // для добавления элементов (enqueue)
+        private Stack<T> stack2;  // для удаления элементов (dequeue)
 
-        public CustomQueue() {
+        public CustomQueue(Stack<T> stack1, Stack<T> stack2) {
             this.stack1 = stack1;
             this.stack2 = stack2;
         }
 
-        // Метод для проверки, пуста ли очередь
-        public boolean isEmpty() {
-            return stack1.isEmpty() && stack2.isEmpty();
-        }
-
         // Метод для добавления элемента в очередь (enqueue)
-        public void enqueue(int value) {
-            stack1.push(value);
+        public void enqueue(T item) {
+            stack1.push(item);
         }
-
+        
         // Метод для удаления элемента из очереди (dequeue)
-        public int dequeue() {
-            // Если оба стека пусты, очередь пуста
-            if (this.isEmpty()) {
-                throw new RuntimeException("Queue is empty");
-            }
-
-            // Если stack2 пуст, переносим все элементы из stack1 в stack2
+        public T dequeue () {
             if (stack2.isEmpty()) {
+                // Перекладываем элементы из stack1 в stack2
                 while (!stack1.isEmpty()) {
                     stack2.push(stack1.pop());
                 }
+            }
+
+            // Если stack2 пустой, значит очередь пуста
+            if (stack2.isEmpty()) {
+                throw new RuntimeException("Queue is empty");
             }
 
             // Удаляем элемент из stack2
             return stack2.pop();
         }
 
-        // Метод для просмотра элемента, который находится в начале очереди (peek)
-        public int peek() {
-            if (this.isEmpty()) {
-                throw new RuntimeException("Queue is empty");
-            }
+        // Метод для проверки, пуста ли очередь
+        public boolean isEmpty () {
+            return stack1.isEmpty() && stack2.isEmpty();
+        }
 
+        // Метод для получения первого элемента без его удаления (peek)
+        public T peek () {
             if (stack2.isEmpty()) {
+                // Перекладываем элементы из stack1 в stack2
                 while (!stack1.isEmpty()) {
                     stack2.push(stack1.pop());
                 }
             }
 
+            // Если очередь пуста
+            if (stack2.isEmpty()) {
+                throw new RuntimeException("Queue is empty");
+            }
+
+            // Возвращаем первый элемент без удаления
             return stack2.peek();
         }
     }
@@ -317,7 +320,7 @@
 </details>
 <br>
 
-10. Нахождение "двойки" (Pair Sum Problem)
+10. **Нахождение "двойки" (Pair Sum Problem)**
 
 Напишите метод, который находит все пары в массиве целых чисел, сумма которых равна заданному числу.
 
