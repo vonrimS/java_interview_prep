@@ -87,7 +87,7 @@
  </br>
 
     public static int getBiggestElement(int[] input){
-        int temp = -1;
+        int temp = Integer.MIN_VALUE;;
 
         for (int a : input){
             temp = (a > temp) ? a : temp;

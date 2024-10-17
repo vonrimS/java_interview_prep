@@ -1,8 +1,354 @@
 # Топ-20 `Java` задач по `Stream API`
 
-Вот топ-20 задач для live coding собеседования по теме Java Stream API. Эти задачи помогут проверить навыки работы с потоками, фильтрацией, сортировкой, группировкой и другими операциями.
 
-1. Фильтрация списка строк по длине:
+20. Обработка исключений в Stream API (Handling Exceptions in Streams)
+
+Напишите пример, где в Stream API обрабатываются исключения внутри лямбда-выражений.
+
+<details>
+ <summary>Решение 20</summary> 
+ </br>
+
+    // ---try-catch---
+
+    public static void main(String[] args) {
+        List<String> numbers = Arrays.asList("1", "2", "a", "3");
+
+        // Пример обработки исключений внутри лямбда-выражений
+        List<Integer> result = numbers.stream()
+            .map(number -> {
+                try {
+                    return Integer.parseInt(number);  // Попытка преобразования строки в число
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid number format for: " + number);
+                    return null;  // Возвращаем null, если возникло исключение
+                }
+            })
+            .filter(num -> num != null)  // Фильтруем значения null
+            .toList();
+
+        System.out.println("Parsed numbers: " + result);
+    }
+
+    // ---with-wrapper-function---
+
+    public static void main(String[] args) {
+        List<String> numbers = Arrays.asList("1", "2", "a", "3");
+
+        // Используем обертку для обработки исключений
+        List<Integer> result = numbers.stream()
+            .map(wrapper(Integer::parseInt))  // Обрабатываем исключения через обертку
+            .filter(num -> num != null)  // Фильтруем null значения
+            .toList();
+
+        System.out.println("Parsed numbers: " + result);
+    }
+
+    // Вспомогательный метод для обработки исключений
+    public static <T, R> Function<T, R> wrapper(Function<T, R> function) {
+        return input -> {
+            try {
+                return function.apply(input);
+            } catch (Exception e) {
+                System.out.println("Exception occurred: " + e.getMessage() + " for input: " + input);
+                return null;  // Возвращаем null в случае ошибки
+            }
+        };
+    }
+
+    // ---with-throw---
+
+    public static void main(String[] args) {
+        List<String> files = Arrays.asList("file1.txt", "file2.txt", "invalidFile");
+
+        // Пример работы с проверяемыми исключениями (checked exceptions)
+        List<String> result = files.stream()
+            .map(file -> {
+                try {
+                    return readFile(file);  // Пробуем прочитать файл
+                } catch (IOException e) {
+                    throw new RuntimeException("Error reading file: " + file, e);  // Пробрасываем через RuntimeException
+                }
+            })
+            .toList();
+
+        System.out.println("Processed files: " + result);
+    }
+
+    // Метод, который может бросить проверяемое исключение (IOException)
+    public static String readFile(String file) throws IOException {
+        if ("invalidFile".equals(file)) {
+            throw new IOException("File not found: " + file);
+        }
+        return "Content of " + file;
+    }
+    
+</details>
+<br>
+
+1. **Фильтрация списка (Filtering List)**
+
+Используя **Stream API**, отфильтруйте список строк, оставив только строки, начинающиеся с определенного символа.
+
+<details>
+ <summary>Решение 1</summary> 
+ </br>
+
+    public static List<String> filterStringsByChar(List<String> input, char firstChar){
+        return input.stream()
+                .filter(str -> !str.isEmpty() && str.charAt(0) == firstChar)
+                .collect(Collectors.toList());
+    }
+
+</details>
+<br>
+
+2. **Группировка объектов (Grouping Objects)**
+
+Используя `Stream API`, сгруппируйте объекты по их определенному полю и подсчитайте их количество в каждой группе.
+
+<details>
+ <summary>Решение 2</summary> 
+ </br>
+    
+    import lombok.AllArgsConstructor;
+    import lombok.Data;
+
+    @Data
+    @AllArgsConstructor
+    public class Person {
+        private String name;
+        private String city;
+    }
+
+    // -------------
+
+
+    public class GroupingByExample {
+        public static void main(String[] args) {
+            List<Person> people = Arrays.asList(
+                new Person("John", "New York"),
+                new Person("Anna", "Los Angeles"),
+                new Person("Mike", "New York"),
+                new Person("Sophia", "Los Angeles"),
+                new Person("Paul", "Chicago")
+            );
+
+            Map<String, Long> peopleByCity = people.stream()
+                    .collect(Collectors.groupingBy(Person::getCity, Collectors.counting()));
+
+            peopleByCity.forEach((city, count) ->
+                    System.out.println("City: " + city + ", Number of people: " + count));
+        }
+    }
+    
+</details>
+<br>
+
+3. **Поиск максимального значения в списке объектов (Max Value from List of Objects)**
+
+Найдите объект с максимальным значением поля в списке, используя `Stream API`.
+
+<details>
+ <summary>Решение 3</summary> 
+ </br>
+
+    @Data
+    @AllArgsConstructor
+    @ToString
+    public class Person {
+        private String name;
+        private int age;
+    }
+
+    // -------------
+
+    public class MaxValueExample {
+        public static void main(String[] args) {
+            List<Person> people = Arrays.asList(
+                    new Person("John", 25),
+                    new Person("Anna", 30),
+                    new Person("Mike", 35),
+                    new Person("Sophia", 28),
+                    new Person("Paul", 45)
+            );
+
+            Optional<Person> oldestPerson = people.stream()
+                    .max(Comparator.comparingInt(Person::getAge));
+
+            oldestPerson.ifPresent(person ->
+                    System.out.println("Oldest person: " + person));
+        }
+    }
+    
+</details>
+<br>
+
+15. Преобразование списка в мапу (List to Map)
+
+Напишите метод, который преобразует список объектов в Map, где ключами будут уникальные поля объектов.
+
+<details>
+ <summary>Решение 15</summary> 
+ </br>
+
+    @Data
+    @AllArgsConstructor
+    @ToString
+    public class Person {
+        private int id;
+        private String name;
+    }
+
+    // --------
+
+    public class ListToMapExample {
+
+    public static Map<Integer, Person> convertListToMap(List<Person> people){
+        // Преобразуем список в Map, где ключом является поле id, а значением — объект Person
+        return people.stream()
+                .collect(Collectors.toMap(
+                        Person::getId,  // Ключом будет id
+                        person -> person, // Значением будет сам объект
+                        (existing, replacement) -> existing // В случае дублирования ключа оставляем первый объект
+                ));
+    }
+
+    public static void main(String[] args) {
+        List<Person> people = Arrays.asList(
+                new Person(1, "John"),
+                new Person(2, "Anna"),
+                new Person(3, "Mike"),
+                new Person(2, "Sophia")  // Повторение id 2
+        );
+
+        // Преобразуем список в Map
+        Map<Integer, Person> peopleMap = convertListToMap(people);
+
+        // Выводим результат
+        peopleMap.forEach((id, person) ->
+                System.out.println("ID: " + id + " -> " + person));
+    }
+
+    
+</details>
+<br>
+
+16. Объединение двух Map (Merging Maps)
+
+Реализуйте метод, который объединяет два Map, разрешая конфликты путем суммирования значений.
+
+<details>
+ <summary>Решение 16</summary> 
+ </br>
+
+    public static Map<String, Integer> mergeMaps(Map<String, Integer> map1, Map<String, Integer> map2) {
+        // Объединяем два Map, разрешая конфликты через суммирование значений
+        return Stream.concat(map1.entrySet().stream(), map2.entrySet().stream())
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,   // Ключ
+                        Map.Entry::getValue, // Значение
+                        Integer::sum         // Разрешение конфликтов через суммирование
+                ));
+    }
+
+    // -----
+
+    public static void main(String[] args) {
+        Map<String, Integer> map1 = new HashMap<>();
+        map1.put("a", 1);
+        map1.put("b", 2);
+        map1.put("c", 3);
+
+        Map<String, Integer> map2 = new HashMap<>();
+        map2.put("b", 3);
+        map2.put("c", 4);
+        map2.put("d", 5);
+
+        // Объединяем два Map
+        Map<String, Integer> mergedMap = mergeMaps(map1, map2);
+
+        // Выводим результат
+        mergedMap.forEach((key, value) -> 
+            System.out.println("Key: " + key + ", Value: " + value));
+    }
+    
+</details>
+<br>
+
+17. Сортировка коллекции объектов (Sorting Collection)
+
+Напишите метод для сортировки коллекции объектов по заданному полю в обратном порядке.
+
+<details>
+ <summary>Решение 17</summary> 
+ </br>
+
+    @Data
+    @AllArgsConstructor
+    @ToString
+    public class Person {
+        private String name;
+        private int age;
+    }
+
+    // -----
+
+    public static List<Person> sortByFieldInReverseOrder(List<Person> people) {
+        // Сортируем по возрасту в обратном порядке
+        return people.stream()
+                .sorted(Comparator.comparingInt(Person::getAge).reversed())  // Сортировка по полю age в обратном порядке
+                .collect(Collectors.toList());  // Собираем результат в список
+    }
+
+    public static void main(String[] args) {
+        List<Person> people = Arrays.asList(
+            new Person("John", 25),
+            new Person("Anna", 30),
+            new Person("Mike", 35),
+            new Person("Sophia", 28)
+        );
+
+        // Сортируем коллекцию по возрасту в обратном порядке
+        List<Person> sortedPeople = sortByFieldInReverseOrder(people);
+
+        // Выводим результат
+        sortedPeople.forEach(System.out::println);
+    }
+    
+</details>
+<br>
+
+18. Удаление дубликатов из списка (Remove Duplicates)
+
+Реализуйте метод, который удаляет дубликаты из List и возвращает список уникальных значений.
+
+<details>
+ <summary>Решение 18</summary> 
+ </br>
+
+    public static <T> List<T> removeDuplicates(List<T> list){
+    return list.stream()
+            .distinct()
+            .toList();
+    }
+
+    // -----
+
+    public static void main(String[] args) {
+
+        var a = Arrays.asList("apple", "banana", "apple", "kiwi");
+
+        List<String> uniqueList = TopJavaProblems.removeDuplicates(a);
+
+        uniqueList.forEach(System.out::println);
+    }
+    
+</details>
+<br>
+
+
+4. Фильтрация списка строк по длине:
 Отфильтруйте список строк, оставив только те, длина которых больше 5 символов.
 
 java
