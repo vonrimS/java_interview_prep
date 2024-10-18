@@ -5,7 +5,7 @@
 * [Java I/O](docs/java_io_prep.md)
 * [Java NIO](docs/java_nio_prep.md)
 * [Сериализация и Jackson](docs/java_serialize_prep.md)
-* Работа со строкой
+* [Работа со строкой](docs/java_string.md)
 * Работа с regex
 * [ООП](docs/java_oop_prep.md)
 * Обработка исключений
@@ -28,11 +28,11 @@
 * [Common Knowledge](../common_knowledge/common_main.md)
 
 ____
-* [Топ-20 SQL задач](docs/top_sql_problems.md)
-* [Топ-30 Java задач](docs/top_java_problems.md)
-* [Топ-20 Java Stream API](docs/top_java_streamapi.md)
-* [Топ-20 Java Concurrency](docs/top_java_concurrency.md)
-* [Топ-20 Java Collections](docs/top_java_collections.md)
+* [Топ SQL задач](docs/top_sql_problems.md)
+* [Топ Java задач](docs/top_java_problems.md)
+* [Топ Java Stream API](docs/top_java_streamapi.md)
+* [Топ Java Concurrency](docs/top_java_concurrency.md)
+* [Топ Java Collections](docs/top_java_collections.md)
 
 
 

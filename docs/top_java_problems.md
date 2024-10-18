@@ -256,60 +256,45 @@
  <summary>Решение 9</summary> 
  </br>
 
-    public class CustomQueue<T> {
-        private Stack<T> stack1;  // для добавления элементов (enqueue)
-        private Stack<T> stack2;  // для удаления элементов (dequeue)
+    public class CustomQueueWithTwoStacks<T> {
+        private Stack<T> stack1;  // для вставки элементов - enqueue
+        private Stack<T> stack2;  // для извлечения элементов - dequeue
+        private int maxSize;      // максимальный размер очереди
 
-        public CustomQueue(Stack<T> stack1, Stack<T> stack2) {
-            this.stack1 = stack1;
-            this.stack2 = stack2;
+        public CustomQueueWithTwoStacks(int maxSize) {
+            this.maxSize = maxSize;
+            this.stack1 = new Stack<>();
+            this.stack2 = new Stack<>();
         }
 
-        // Метод для добавления элемента в очередь (enqueue)
-        public void enqueue(T item) {
-            stack1.push(item);
-        }
-        
-        // Метод для удаления элемента из очереди (dequeue)
-        public T dequeue () {
-            if (stack2.isEmpty()) {
-                // Перекладываем элементы из stack1 в stack2
-                while (!stack1.isEmpty()) {
-                    stack2.push(stack1.pop());
-                }
-            }
-
-            // Если stack2 пустой, значит очередь пуста
-            if (stack2.isEmpty()) {
-                throw new RuntimeException("Queue is empty");
-            }
-
-            // Удаляем элемент из stack2
-            return stack2.pop();
-        }
-
-        // Метод для проверки, пуста ли очередь
-        public boolean isEmpty () {
+        public boolean isEmpty(){
             return stack1.isEmpty() && stack2.isEmpty();
         }
 
-        // Метод для получения первого элемента без его удаления (peek)
-        public T peek () {
-            if (stack2.isEmpty()) {
-                // Перекладываем элементы из stack1 в stack2
-                while (!stack1.isEmpty()) {
+        public boolean isFull(){
+            return stack1.size() + stack2.size() == maxSize;
+        }
+
+        public void enqueue(T item){
+            if (isFull())
+                throw new RuntimeException("Queue is full");
+
+            stack1.push(item);
+        }
+
+        public T dequeue(){
+            if (isEmpty())
+                throw new RuntimeException("Queue is empty");
+
+            if (stack2.isEmpty()){
+                while (!stack1.isEmpty()){
                     stack2.push(stack1.pop());
                 }
             }
 
-            // Если очередь пуста
-            if (stack2.isEmpty()) {
-                throw new RuntimeException("Queue is empty");
-            }
-
-            // Возвращаем первый элемент без удаления
-            return stack2.peek();
+            return stack2.pop();
         }
+
     }
     
 </details>
@@ -352,26 +337,24 @@
  </br>
 
      public static void countWordFrequencyAndPrintDesc(String input){
-        // подготовить строку и разобрать
-        String[] words = input.toLowerCase()
-                .replaceAll("[^a-z0-9\\s]", "")
-                .split("\\s+");
+        // удаляет все не буквы и не цифры, разбивает на массив по пробелам любой длины между словами
+        String[] words = input.toLowerCase().replaceAll("[^a-z0-9\\s]", "").split("\\s+");
 
-        HashMap<String, Integer> wordCountMap = new HashMap<>();
+        var map = new HashMap<String, Integer>();
 
         for (String word : words)
-            wordCountMap.put(word, wordCountMap.getOrDefault(word, 0) + 1);
+            map.put(word, map.getOrDefault(word, 0) + 1);
 
-        List<Map.Entry<String, Integer>> sortedList = new ArrayList<>(wordCountMap.entrySet());
-        
-        //  sortedList.sort((entry1, entry2) -> 
-            Integer.compare(entry2.getKey().length(), entry1.getKey().length()));
-        
-        sortedList.sort((entry1, entry2) -> entry2.getValue().compareTo(entry1.getValue()));
+        List<Map.Entry<String, Integer>> sortedList = new ArrayList<>(map.entrySet());
 
-        for (Map.Entry<String, Integer> entry : sortedList){
-            System.out.println(entry.getKey() + ": " + entry.getValue());
-        }
+        // сортирует по длине строки и алфавиту если слова одинаковые по длине
+        sortedList.sort((e1, e2) -> Integer.compare(e2.getKey().length(), e1.getKey().length()));
+
+        // сортирует по количеству повторов в стоке
+        sortedList.sort((e1, e2) -> e2.getValue().compareTo(e1.getValue()));
+
+        for (Map.Entry<String, Integer> entry : sortedList)
+            System.out.println(entry.getKey() + " : " + entry.getValue());
     }
     
 </details>
@@ -442,6 +425,18 @@
 Напишите метод `factorial(int n)`, который возвращает факториал числа `n`.
 
 <details>
+ <summary>Пример факториала</summary> 
+ </br>
+    1! = 1
+    2! = 2
+    3! = 6
+    4! = 24
+    5! = 120
+    6! = 720
+</details>
+
+
+<details>
  <summary>Решение 13</summary> 
  </br>
   
@@ -462,15 +457,50 @@
 Напишите метод `fibonacci(int n)`, который возвращает `n`-е число Фибоначчи.
 
 <details>
+ <summary>Последовательность Фибоначчи</summary> 
+ </br>
+
+    0 -> 0
+    1 -> 1
+    2 -> 1
+    3 -> 2
+    4 -> 3
+    5 -> 5
+    6 -> 8
+    7 -> 13
+    8 -> 21
+    9 -> 34
+    10 -> 55
+
+</details>
+
+
+<details>
  <summary>Решение 14</summary> 
  </br>
  
-    public static int fibonacci(int n) {
-        if (n <= 1) {
+    // рекурсивный подход
+    public static int getFibonacci(int n){
+        if (n <= 1)
             return n;
-        } else {
-            return fibonacci(n - 1) + fibonacci(n - 2);
+        else
+            return getFibonacci(n - 1) + getFibonacci(n - 2);
+    }
+
+    // итеративный подход
+    public static int getFibonacciIterative(int n){
+        if (n <= 1)
+            return n;
+
+        int prev = 0, curr = 1;
+
+        for (int i = 2; i <= n; i++){
+            int next = prev + curr;
+            prev = curr;
+            curr = next;
         }
+
+        return curr;
     }
 
 </details>
@@ -481,7 +511,7 @@
 
 Задача на Ханойские башни заключается в перемещении `n` дисков с одного стержня на другой с помощью промежуточного стержня, следуя правилам: **можно перемещать только один диск за раз, и нельзя класть больший диск на меньший**.
 
-Напишите метод solveHanoi(int n, char fromRod, char toRod, char auxRod), который рекурсивно решает задачу Ханойских башен.
+Напишите метод `solveHanoi(int n, char fromRod, char toRod, char auxRod)`, который рекурсивно решает задачу Ханойских башен.
 
 <details>
  <summary>Решение 15</summary> 
