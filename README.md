@@ -11,7 +11,7 @@
 * Обработка исключений
 * Коллекции и структуры данных
 * [Big O](docs/java_big_o_prep.md)
-* Потоки и многозадачность
+* [Потоки и многозадачность](docs/java_concurrency_prep.md)
 * Java API и библиотеки
 * [Stream API](docs/java_streamapi_prep.md)
 * [Spring Framework](docs/java_spring_framework_prep.md)
