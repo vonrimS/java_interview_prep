@@ -24,7 +24,7 @@
 * [Entity Framework](docs/java_entity_framework_prep.md)
 * Java 8+
 * Логирование
-* [Шаблоны проектирования](../design-patterns/design-patterns-main.md)
+* [Шаблоны проектирования](docs/java_patterns_prep.md)
 * [Common Knowledge](../common_knowledge/common_main.md)
 
 ____
