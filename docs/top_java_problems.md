@@ -427,12 +427,12 @@
 <details>
  <summary>Пример факториала</summary> 
  </br>
-    1! = 1
-    2! = 2
-    3! = 6
-    4! = 24
-    5! = 120
-    6! = 720
+    1! = 1;
+    2! = 2;
+    3! = 6;
+    4! = 24;
+    5! = 120;
+    6! = 720;
 </details>
 
 
@@ -599,6 +599,228 @@
         }
         
         return sum;
+    }
+
+</details>
+<br>
+
+19. **Рекурсивная функция для вычисления суммы элементов массива**
+
+Напишите рекурсивную функцию, которая принимает массив целых чисел и возвращает их сумму.
+
+<details>
+ <summary>Решение 19</summary> 
+ </br>
+  
+    public static int sum(int[] arr, int n) {
+        if (n == 0) return 0;
+        return arr[n - 1] + sum(arr, n - 1);
+    }
+
+</details>
+<br>
+
+20. **`FizzBuzz` с дополнительной логикой**
+
+Модифицируйте классическую задачу `FizzBuzz` так, чтобы она выводила:
+
+* "Fizz" для чисел, кратных 3
+* "Buzz" для чисел, кратных 5
+* "FizzBuzz" для чисел, кратных и 3, и 5
+* "BuzzFizz" для чисел, кратных 7, но не 3 и 5
+
+<details>
+ <summary>Решение 20</summary> 
+ </br>
+  
+    public static void fizzBuzz(int n) {
+        for (int i = 1; i <= n; i++) {
+            if (i % 3 == 0 && i % 5 == 0) {
+                System.out.println("FizzBuzz");
+            } else if (i % 7 == 0) {
+                System.out.println("BuzzFizz");
+            } else if (i % 3 == 0) {
+                System.out.println("Fizz");
+            } else if (i % 5 == 0) {
+                System.out.println("Buzz");
+            } else {
+                System.out.println(i);
+            }
+        }
+    }
+
+</details>
+<br>
+
+21. **Поиск пути в лабиринте (`Backtracking`)**
+
+Напишите программу, которая решает задачу поиска пути в лабиринте с использованием метода поиска с возвратом (`backtracking`). Лабиринт представлен `2D` массивом, где
+
+* `1` — это путь
+* `0` — это стена
+
+<details>
+ <summary>Решение 21</summary> 
+ </br>
+
+    public static boolean solveMaze(int[][] maze, int x, int y) {
+        if (x == maze.length - 1 && y == maze[0].length - 1)
+            return true;
+        
+        if (x >= 0 && x < maze.length && y >= 0 && y < maze[0].
+        length && maze[x][y] == 1) {
+            maze[x][y] = 2;  // Маркируем как посещенный
+            if (solveMaze(maze, x + 1, y)) return true;  // Вниз
+            if (solveMaze(maze, x, y + 1)) return true;  // Вправо
+            if (solveMaze(maze, x - 1, y)) return true;  // Вверх
+            if (solveMaze(maze, x, y - 1)) return true;  // Влево
+            maze[x][y] = 1;  // Отмена хода
+        }
+
+        return false;
+    }
+
+</details>
+<br>
+
+22. **Реализация `Singleton` с ленивой инициализацией**
+
+Напишите потокобезопасную реализацию `Singleton` с ленивой инициализацией.
+
+<details>
+ <summary>Решение 22</summary> 
+ </br>
+    public class Singleton {
+        private static Singleton instance;
+        
+        private Singleton() {}
+        
+        public static Singleton getInstance() {
+            if (instance == null) {
+                synchronized (Singleton.class) {
+                    if (instance == null) {
+                        instance = new Singleton();
+                    }
+                }
+            }
+            return instance;
+        }
+    }
+
+</details>
+<br>
+
+
+23. **Алгоритм Левенштейна (Редакционное расстояние)**
+
+Расстояние Левенштейна, или редакционное расстояние, — метрика cходства между двумя строковыми последовательностями.
+
+Реализуйте рекурсивную (или динамическую) версию вычисления редакционного расстояния между двумя строками.
+
+<details>
+ <summary>Решение 23</summary> 
+ </br>
+  
+    public static int levenshtein(String s1, String s2) {
+        if (s1.isEmpty()) return s2.length();
+        if (s2.isEmpty()) return s1.length();
+        
+        int cost = s1.charAt(0) == s2.charAt(0) ? 0 : 1;
+        
+        return Math.min(
+            Math.min(levenshtein(s1.substring(1), s2) + 1, 
+                    levenshtein(s1, s2.substring(1)) + 1), 
+                    levenshtein(s1.substring(1), s2.substring(1)) + cost);
+    }
+
+</details>
+<br>
+
+24. **Реализация собственной `HashMap`**
+
+Напишите метод, который принимает на вход натуральное число (целое положительное число) и возвращает сумму его цифр.
+
+<details>
+ <summary>Решение 24</summary> 
+ </br>
+  
+    public class MyHashMap<K, V> {
+        private class Node<K, V> {
+            K key;
+            V value;
+            Node<K, V> next;
+            // Конструктор и методы
+        }
+
+        private Node<K, V>[] buckets;
+        private int capacity;
+        
+        public MyHashMap() {
+            capacity = 16;
+            buckets = new Node[capacity];
+        }
+        
+        public void put(K key, V value) {
+            int index = key.hashCode() % capacity;
+            Node<K, V> newNode = new Node<>(key, value, null);
+            // Логика вставки
+        }
+        
+        public V get(K key) {
+            int index = key.hashCode() % capacity;
+            // Логика поиска
+        }
+    }
+
+</details>
+<br>
+
+
+25. **Переворот односвязного списка**
+
+Напишите функцию для переворота односвязного списка. Классическая задача для работы с указателями.
+
+<details>
+ <summary>Решение 25</summary> 
+ </br>
+  
+    public static ListNode reverseList(ListNode head) {
+        ListNode prev = null;
+        ListNode current = head;
+        
+        while (current != null) {
+            ListNode next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+        return prev;
+    }
+
+</details>
+<br>
+
+
+26. **Определение цикла в односвязном списке**
+
+Используя алгоритм Флойда (алгоритм черепахи и зайца), определите, содержит ли односвязный список цикл.
+
+<details>
+ <summary>Решение 26</summary> 
+ </br>
+
+    public static boolean hasCycle(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+        
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) {
+                return true;
+            }
+        }
+        return false;
     }
 
 </details>
