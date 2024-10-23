@@ -2,6 +2,7 @@
 
 * [Java Core](docs/java_core_prep.md)
 * [Память в Java](docs/java_memory_prep.md)
+* [Generics](docs/java_generics_prep.md)
 * [Java I/O](docs/java_io_prep.md)
 * [Java NIO](docs/java_nio_prep.md)
 * [Сериализация и Jackson](docs/java_serialize_prep.md)
